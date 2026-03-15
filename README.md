@@ -3,7 +3,7 @@
 
 Arduino/PlatformIO library for the **HLK-LD2420** 24 GHz mmWave presence and motion radar sensor by Shenzhen Hi-Link Electronic Co.
 
-> **Status:** Active development — not yet released. No backwards compatibility guarantees.
+> **Status:** V1.0.0 Released, but not yet thoroughly tested.
 
 ---
 
