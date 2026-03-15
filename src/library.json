@@ -1,0 +1,120 @@
+{
+  "name": "LD2420GeoGab",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Gabriel Sieben",
+      "maintainer": true,
+      "url": "https://github.com/GeoGab"
+    }
+  ],
+  "description": "Full-featured Arduino/PlatformIO driver for the HLK-LD2420 24 GHz mmWave presence and motion radar sensor targeting ESP32 devices. Supports Energy, Simple and Debug output modes, full ABD configuration, poll and callback API.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeoGab/LD2420GeoGab.git"
+  },
+  "export": {},
+  "examples": [
+    {
+      "name": "Calibration/Arduino",
+      "base": "examples\\Calibration\\Arduino",
+      "files": [
+        "Calibration.ino"
+      ]
+    },
+    {
+      "name": "Calibration/plattformio",
+      "base": "examples\\Calibration\\plattformio",
+      "files": [
+        "platformio.ini",
+        "src\\config.h",
+        "src\\main.cpp"
+      ]
+    },
+    {
+      "name": "Debug/Arduino",
+      "base": "examples\\Debug\\Arduino",
+      "files": [
+        "Debug.ino"
+      ]
+    },
+    {
+      "name": "Debug/platformio",
+      "base": "examples\\Debug\\platformio",
+      "files": [
+        "platformio.ini",
+        "src\\config.h",
+        "src\\main.cpp"
+      ]
+    },
+    {
+      "name": "Energy/Arduino",
+      "base": "examples\\Energy\\Arduino",
+      "files": [
+        "Energy.ino"
+      ]
+    },
+    {
+      "name": "Energy/platformio",
+      "base": "examples\\Energy\\platformio",
+      "files": [
+        "platformio.ini",
+        "src\\config.h",
+        "src\\main.cpp"
+      ]
+    },
+    {
+      "name": "SimpleCallback/Arduino",
+      "base": "examples\\SimpleCallback\\Arduino",
+      "files": [
+        "SimpleCallback.ino"
+      ]
+    },
+    {
+      "name": "SimpleCallback/platformio",
+      "base": "examples\\SimpleCallback\\platformio",
+      "files": [
+        "config.h",
+        "main.cpp",
+        "platformio.ini"
+      ]
+    },
+    {
+      "name": "SimpleLoop/Arduino",
+      "base": "examples\\SimpleLoop\\Arduino",
+      "files": [
+        "SimpleLoop.ino"
+      ]
+    },
+    {
+      "name": "SimpleLoop/platformio",
+      "base": "examples\\SimpleLoop\\platformio",
+      "files": [
+        "platformio.ini",
+        "src\\config.h",
+        "src\\main.cpp"
+      ]
+    }
+  ],
+  "keywords": [
+    "ld2420",
+    "hlk-ld2420",
+    "mmwave",
+    "radar",
+    "presence",
+    "motion",
+    "hi-link",
+    "esp32",
+    "sensor"
+  ],
+  "platforms": [
+    "espressif32"
+  ],
+  "frameworks": [
+    "arduino"
+  ],
+  "headers": [
+    "LD2420GeoGab.h"
+  ]
+}
