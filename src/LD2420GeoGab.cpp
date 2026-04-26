@@ -53,16 +53,9 @@ const char *LD2420GeoGab::errorToString(LD2420Error err) {
 // Lifecycle
 // =============================================================================
 
-bool LD2420GeoGab::begin(int txPin, int rxPin, uint32_t baudRate) {
-    sensorSerial = &GG_UART_PORT;
+bool LD2420GeoGab::begin(HardwareSerial *serial){
+    sensorSerial = serial;
     sFlags.initialized = false;
-
-    GG_LOGI("begin()  TX=%d  RX=%d  Baud=%u  S3=%d",
-            txPin, rxPin, (unsigned)baudRate, IS_ESP32_S3);
-
-    // NOTE: ESP32 HardwareSerial::begin(baud, config, rxPin, txPin) — RX before TX!
-    sensorSerial->begin(baudRate, SERIAL_8N1, rxPin, txPin);
-    delay(100); // Give the UART peripheral time to settle before the first byte
 
     // Enter config mode as a communication check — if this fails the sensor
     // is not responding (wrong pins, wrong baud, power issue).

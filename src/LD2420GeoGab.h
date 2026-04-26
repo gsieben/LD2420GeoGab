@@ -114,26 +114,21 @@ public:
      *
      * @details
      * Performs the following sequence:
-     *  1. Opens the UART port with the given (or default) pins and baud rate.
-     *  2. Enters config mode (double-activate per spec) to verify comms.
-     *  3. Reads and caches the firmware version string.
-     *  4. Leaves config mode — sensor starts detection immediately.
+     *  1. Enters config mode (double-activate per spec) to verify comms.
+     *  2. Reads and caches the firmware version string.
+     *  3. Leaves config mode — sensor starts detection immediately.
      *
      * Pin and baud defaults come from `LD2420GeoGab_config.h` and can be
      * overridden here or via PlatformIO `build_flags`.
      *
-     * @param txPin    ESP32 TX pin → sensor RX (default: GG_TXPIN)
-     * @param rxPin    ESP32 RX pin ← sensor TX (default: GG_RXPIN)
-     * @param baudRate UART baud — 115200 for fw ≥ v1.5.3, 256000 for older
+     * @param  serial   Pointer to initialized HardwareSerial instance
      * @return `true` on success, `false` if no response from sensor
      *
      * @note The sensor retains its configuration in internal flash across
      *       power cycles.  You only need to call setSystemMode() / setGateRange()
      *       once, or whenever you want to change the settings.
      */
-    bool begin(int txPin         = GG_TXPIN,
-               int rxPin         = GG_RXPIN,
-               uint32_t baudRate = GG_BAUDRATE);
+    bool begin(HardwareSerial *serial = &GG_UART_PORT);
 
     /**
      * @brief Process incoming UART data and fire registered callbacks.
