@@ -10,8 +10,8 @@
  * @endverbatim
  * @brief Implementation of the LD2420GeoGab library.
  * @author Gabriel Sieben (GeoGab)
- * @version 1.0.0
- * @date 2026-03
+ * @version 1.0.1
+ * @date 2026-05-07
  * @license MIT
  * @details
  * All public API is documented in LD2420GeoGab.h.
@@ -28,6 +28,9 @@
  * - Debug mode is continuous — no auto-revert after N frames.
  * - activateConfigMode() requires a single send with dynamic flush.
  * - writeABDConfig() must write one gate at a time with 125 µs delay.
+ * 
+ * Update 1.0.1 (2026-05-07):
+ *  - Added pull mode for the energy mode
  */
 
 #include "LD2420GeoGab.h"
@@ -885,6 +888,7 @@ void LD2420GeoGab::processRxBuffer() {
             if (p[41] == 0xF8 && p[42] == 0xF7 && p[43] == 0xF6 && p[44] == 0xF5) {
                 LD2420EnergyFrame frame;
                 if (parseEnergyFrame(p, LD2420_ENERGY_FRAME_LEN, frame)) {
+                    values.lastEnergyFrame = frame;
                     dispatchStatus(frame.status, frame.distance);
                     if (callbacks.energyCb) callbacks.energyCb(frame);
                 }

@@ -372,6 +372,28 @@ public:
      */
     bool isPresent() const { return values.lastStatus != LD2420DetectionStatus::None; }
 
+    /**
+     * @brief Return the full Energy frame from the most recently parsed Energy frame.
+     *
+     * @details
+     * Updated by update() on every successfully parsed Energy frame.
+     * Contains status, distance and all 16 gate energies.
+     * Use this for polling instead of (or alongside) setEnergyCallback().
+     *
+     * @return Const reference to the cached LD2420EnergyFrame.
+     *
+     * @code
+     * void loop() {
+     *     radar.update();
+     *     if (radar.newDataAvailable()) {
+     *         const auto &f = radar.getLastEnergyFrame();
+     *         Serial.printf("dist=%u cm  gate0=%u\n", f.distance, f.gateEnergy[0]);
+     *     }
+     * }
+     * @endcode
+     */
+    const LD2420EnergyFrame& getLastEnergyFrame() const { return values.lastEnergyFrame; }
+
 
     // =========================================================================
     // ABD Parameters  (low-level access — prefer high-level helpers below)
@@ -969,6 +991,7 @@ private:
         LD2420SerialInfo      serialInfo;                                ///< Populated by readSerialNumber() — always zero on fw v1.6.1
         LD2420DetectionStatus lastStatus   = LD2420DetectionStatus::None; ///< Status from the most recent parsed frame
         uint16_t              lastDistance = 0;                          ///< Distance (cm) from the most recent parsed frame
+        LD2420EnergyFrame     lastEnergyFrame;                           ///< Full Energy frame from the most recent parsed Energy frame
         bool                  newData      = false;                      ///< Set on every new frame, cleared by newDataAvailable()
         uint32_t              frameCount   = 0;                          ///< Total frames parsed since begin()
     } values;

@@ -11,7 +11,7 @@
  * @brief SimpleCallback — LD2420GeoGab library example (PlatformIO)
  * @author Gabriel Sieben (GeoGab)
  * @version 1.0
- * @date 2024-06-01
+ * @date 2026-03
  * @copyright license MIT
  * @details
  * Minimal getting-started sketch using Simple output mode and callbacks.

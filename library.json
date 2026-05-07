@@ -1,6 +1,6 @@
 {
   "name": "LD2420GeoGab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Full-featured Arduino/PlatformIO driver for the HLK-LD2420 24 GHz mmWave presence and motion radar sensor targeting ESP32 devices. Supports Energy, Simple and Debug output modes, full ABD configuration, poll and callback API.",
   "keywords": [
     "ld2420",

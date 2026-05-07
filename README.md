@@ -552,6 +552,18 @@ Each example is provided in two formats:
 
 ---
 
+## Update History
+
+### v1.0.1 — 2026-05-07
+- **Energy mode: poll getter added** — `getLastEnergyFrame()` returns a `const LD2420EnergyFrame&` with the full gate energy array, distance and detection status from the most recently parsed Energy frame. Allows Energy mode to be used in the same polling style as `getLastDistance()` / `getLastStatus()` without requiring a callback.
+  - `LD2420GeoGab.h` — added `LD2420EnergyFrame lastEnergyFrame` to the private `values` struct and the public getter `const LD2420EnergyFrame& getLastEnergyFrame() const`
+  - `LD2420GeoGab.cpp` — `values.lastEnergyFrame` is now assigned inside `processRxBuffer()` after every successful `parseEnergyFrame()` call
+
+### v1.0.0 — 2026-03
+- Initial release
+
+---
+
 ## License
 
 MIT see [LICENSE](LICENSE) file in the library root.
