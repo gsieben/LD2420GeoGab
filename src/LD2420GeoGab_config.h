@@ -61,13 +61,20 @@
 #endif
 
 
-// ─── UART Selection ───────────────────────────────────────────────────────────
+// ─── UART Selection (ESP32 only) ────────────────────────────────────────────
+// On other cores (AVR, nRF52, CH32, …) the user passes an already-initialised
+// HardwareSerial reference to begin() — no automatic port selection needed.
+
+#if defined(ARDUINO_ARCH_ESP32)
 
 /**
- * @brief Selects which hardware UART port to use for the LD2420.
+ * @brief Selects which hardware UART port to use for the LD2420 (ESP32 only).
  * @details Valid values: 1 (Serial1) or 2 (Serial2).
  *          Default is 2 so that Serial1 remains free for other peripherals.
  *          Override via `build_flags = -DGG_UART_NUM=1` if needed.
+ *          Only relevant when using the ESP32 convenience overload
+ *          begin(txPin, rxPin, baudRate). On other cores the user initialises
+ *          the serial port and passes it to begin(HardwareSerial &serial).
  */
 #ifndef GG_UART_NUM
   #define GG_UART_NUM 2
@@ -80,6 +87,8 @@
 #else
   #error "GG_UART_NUM must be 1 or 2"
 #endif
+
+#endif // ARDUINO_ARCH_ESP32
 
 
 // ─── Baud Rate ────────────────────────────────────────────────────────────────
@@ -98,7 +107,12 @@
 #endif
 
 
-// ─── UART Pins ────────────────────────────────────────────────────────────────
+// ─── UART Pins (ESP32 only) ──────────────────────────────────────────────────
+// These defaults are only used by the ESP32 convenience overload of begin().
+// On other cores, initialise your HardwareSerial port yourself and pass it
+// to begin(HardwareSerial &serial).
+
+#if defined(ARDUINO_ARCH_ESP32)
 
 /**
  * @brief ESP32 TX pin — connected to the LD2420 **RX** pin.
@@ -125,6 +139,8 @@
     #define GG_RXPIN 26   ///< ESP32 (original) default RX
   #endif
 #endif
+
+#endif // ARDUINO_ARCH_ESP32
 
 
 // ─── Debug Level ──────────────────────────────────────────────────────────────

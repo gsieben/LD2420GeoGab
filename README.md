@@ -555,9 +555,12 @@ Each example is provided in two formats:
 ## Update History
 
 ### v1.0.1 — 2026-05-07
+- **Cross-platform portability: new `begin(HardwareSerial &serial)` overload** — contributed by [Jason Horrocks (@Jason-H)](https://github.com/Jason-H). The previous `begin(txPin, rxPin, baudRate)` called `serial.begin(baud, SERIAL_8N1, rxPin, txPin)` which is an ESP32-specific signature not available on AVR, nRF52, CH32 and other cores. A new primary overload accepts an already-initialised `HardwareSerial` reference, making serial initialisation the user's responsibility and the rest of the library portable. Verified on Adafruit nRF52 with PlatformIO. Thank you Jason-H.
+
+
 - **Energy mode: poll getter added** — `getLastEnergyFrame()` returns a `const LD2420EnergyFrame&` with the full gate energy array, distance and detection status from the most recently parsed Energy frame. Allows Energy mode to be used in the same polling style as `getLastDistance()` / `getLastStatus()` without requiring a callback.
-  - `LD2420GeoGab.h` — added `LD2420EnergyFrame lastEnergyFrame` to the private `values` struct and the public getter `const LD2420EnergyFrame& getLastEnergyFrame() const`
-  - `LD2420GeoGab.cpp` — `values.lastEnergyFrame` is now assigned inside `processRxBuffer()` after every successful `parseEnergyFrame()` call
+- **Arduino examples updated** — all five `.ino` examples (`SimpleCallback`, `SimpleLoop`, `Energy`, `Debug`, `Calibration`) now use a `#if defined(ARDUINO_ARCH_ESP32) / #else` block around the `begin()` call so they compile on non-ESP32 cores without modification. The PlatformIO examples are explicitly targeting `platform = espressif32` and remain unchanged.
+
 
 ### v1.0.0 — 2026-03
 - Initial release

@@ -68,7 +68,15 @@ void setup() {
     Serial.println(GG_YELLOW "WARNING: Debug mode streams large frames continuously." GG_RES);
     Serial.println(GG_YELLOW "         Requires ANSI terminal (PlatformIO colorize filter).\n" GG_RES);
  
+#if defined(ARDUINO_ARCH_ESP32)
+    // ESP32 / ESP32-S3: library opens the UART automatically (uses GG_TXPIN / GG_RXPIN).
     if (!radar.begin()) {
+#else
+    // Other cores (AVR, nRF52, CH32, …): initialise your serial port first,
+    // then pass it to begin(). Adjust the port and baud rate for your board.
+    Serial1.begin(GG_BAUDRATE);   // ← replace Serial1 / pins as needed
+    if (!radar.begin(Serial1)) {
+#endif
         Serial.println(GG_RED "[ERROR] Could not communicate with LD2420 — check wiring/baud." GG_RES);
         while (true) delay(1000);
     }
